@@ -1,0 +1,7 @@
+setup.py
+contract_parser/__init__.py
+contract_parser.egg-info/PKG-INFO
+contract_parser.egg-info/SOURCES.txt
+contract_parser.egg-info/dependency_links.txt
+contract_parser.egg-info/requires.txt
+contract_parser.egg-info/top_level.txt
