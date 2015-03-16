@@ -5,6 +5,7 @@ import warnings
 from collections import OrderedDict
 import re
 import nltk
+import string
 from nltk.tokenize import RegexpTokenizer
 from nltk.corpus import words
 
@@ -72,15 +73,11 @@ def tag(raw_string) :
 #     (•ㅅ•) || 
 #     / 　 づ
 def tokenize(raw_string):
-    # this determines how any given string is split into its tokens
-    # handle any punctuation you want to split on, as well as any punctuation to capture
-    
-    #re_tokens = re.compile( [REGEX HERE], re.VERBOSE | re.UNICODE)
-    #tokens = re_tokens.findall(raw_string)
-    tokens = nltk.word_tokenize(raw_string)
-
+    tokenizer = RegexpTokenizer('\w+|\$[\d\.]+|\S+|\(\$[\d\.]+\)')
+    tokens = tokenizer.tokenize(raw_string)
     if not tokens :
         return []
+    print tokens
     return tokens
 
 
