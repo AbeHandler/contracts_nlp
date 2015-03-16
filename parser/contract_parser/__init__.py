@@ -4,6 +4,8 @@ import os
 import warnings
 from collections import OrderedDict
 import re
+import nltk
+from nltk.tokenize import RegexpTokenizer
 from nltk.corpus import words
 
 #  _____________________
@@ -13,7 +15,8 @@ from nltk.corpus import words
 #     (•ㅅ•) || 
 #     / 　 づ
 
-LABELS = ["amount_numeral", "amount_description", "limiting_date", "cupola", "document_self_reference", "amount_alphabetic", "cents", "cents_copola", "skip"] # The labels should be a list of strings
+LABELS = ["amendment_amount", "amendment_amount_description", "agreement_amount", "agreement_amount_description", "other_amount", "other_amount_description", "limiting_date", "cupola", "document_self_reference", "amount_alphabetic", "cents", "cents_copola", "skip"] # The labels should be a list of strings
+
 
 def get_number_words():
     return [l.replace("\n", "").lower() for l in open('number_words.txt')]
@@ -38,7 +41,8 @@ def parse(raw_string):
     if not TAGGER:
         raise IOError('\nMISSING MODEL FILE: %s\nYou must train the model before you can use the parse and tag methods\nTo train the model annd create the model file, run:\nparserator train [traindata] [modulename]' %MODEL_FILE)
 
-    tokens = tokenize(raw_string)
+    tokenizer = RegexpTokenizer('\w+|\$[\d\.]+|\S+')
+    tokens = tokenizer.tokenize(raw_string)
     if not tokens :
         return []
 
@@ -73,8 +77,7 @@ def tokenize(raw_string):
     
     #re_tokens = re.compile( [REGEX HERE], re.VERBOSE | re.UNICODE)
     #tokens = re_tokens.findall(raw_string)
-
-    tokens = raw_string.split()
+    tokens = nltk.word_tokenize(raw_string)
 
     if not tokens :
         return []
