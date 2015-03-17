@@ -8,8 +8,6 @@ from nltk.corpus import words
 
 CORPUS_LOCATION = "/backups/contracts"
 
-OUTPUT_LOCATION = "linker.csv"
-
 glob_files = glob.glob(CORPUS_LOCATION + "/*_text.txt")
 
 pattern = ".{75}\$[0-9]+.{75}"

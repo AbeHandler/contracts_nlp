@@ -1,2 +1,3 @@
+app.cfg 
 *pyc
 parser/contract_parser/__init__.pyc

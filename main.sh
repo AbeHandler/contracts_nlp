@@ -9,6 +9,7 @@ fi
 csvcut -c 2,5 test.csv > labels.csv
 
 cat parser/linker.csv | sort | uniq > linker.csv
+cat linker.csv | parallel --pipe -L 1000 -N1 python amount_guesser_pipe.py
 
 #COPY (select * from amount_string_log where is_true=True or is_true=False) TO '/tmp/amounts.csv' DELIMITER ',' CSV;
 #COPY (select * from amount_string_log where is_true is NULL) TO '/tmp/amounts_unknown.csv' DELIMITER ',' CSV;
