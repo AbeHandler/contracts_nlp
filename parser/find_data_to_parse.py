@@ -26,16 +26,9 @@ def is_english(token):
 
 def add_line(hit, dcid):
 
-    with open("linker.csv", 'a') as f:
+    with open("data.csv", 'a') as f:
         writer = csv.writer(f)
-        hit = hit.translate(string.maketrans("",""), string.punctuation) #strip punctuation
-        writer.writerow([hit.replace("\\n", ""), dcid])
-
-
-    with open("trainer.csv", 'a') as f:
-        writer = csv.writer(f)
-        hit = hit.translate(string.maketrans("",""), string.punctuation) #strip punctuation
-        writer.writerow([hit.replace("\\n", "")])
+        writer.writerow(hit, dcid])
 
 
 for f in glob_files:

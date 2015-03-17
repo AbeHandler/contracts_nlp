@@ -42,7 +42,7 @@ def parse(raw_string):
     if not TAGGER:
         raise IOError('\nMISSING MODEL FILE: %s\nYou must train the model before you can use the parse and tag methods\nTo train the model annd create the model file, run:\nparserator train [traindata] [modulename]' %MODEL_FILE)
 
-    tokenizer = RegexpTokenizer('\w+|\$[\d\.]+|\S+')
+    tokenizer = RegexpTokenizer('\w+|\$[\d\.,]+')
     tokens = tokenizer.tokenize(raw_string)
     if not tokens :
         return []
@@ -73,7 +73,7 @@ def tag(raw_string) :
 #     (•ㅅ•) || 
 #     / 　 づ
 def tokenize(raw_string):
-    tokenizer = RegexpTokenizer('\w+|\$[\d\.]+|\S+|\(\$[\d\.]+\)')
+    tokenizer = RegexpTokenizer('\w+|\$[\d\.,]+')
     tokens = tokenizer.tokenize(raw_string)
     if not tokens :
         return []
