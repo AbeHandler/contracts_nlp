@@ -5,10 +5,11 @@ import glob
 import nltk
 import string
 from nltk.corpus import words
+from contracts_ml.settings import Settings
 
-CORPUS_LOCATION = "/backups/contracts"
+s = Settings()
 
-glob_files = glob.glob(CORPUS_LOCATION + "/*_text.txt")
+glob_files = glob.glob(s.corpus_location + "/*_text.txt")
 
 pattern = ".{75}\$[0-9]+.{75}"
 
@@ -26,7 +27,7 @@ def add_line(hit, dcid):
 
     with open("data.csv", 'a') as f:
         writer = csv.writer(f)
-        writer.writerow(hit, dcid])
+        writer.writerow([hit, dcid])
 
 
 for f in glob_files:
@@ -35,5 +36,5 @@ for f in glob_files:
         tokens = nltk.word_tokenize(hit)
         english_tokens = [t for t in tokens if is_english(t)]
         if float(len(english_tokens))/float(len(tokens)) > .5:   #if more than 50 % english...
-            dcid = f.replace("_text.txt", "").replace(CORPUS_LOCATION, "").replace("/", "")
+            dcid = f.replace("_text.txt", "").replace(s.corpus_location, "").replace("/", "")
             add_line(hit, dcid)

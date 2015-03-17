@@ -16,7 +16,7 @@ from nltk.corpus import words
 #     (•ㅅ•) || 
 #     / 　 づ
 
-LABELS = ["amendment_amount", "amendment_amount_description", "agreement_amount", "agreement_amount_description", "other_amount", "other_amount_description", "limiting_date", "cupola", "document_self_reference", "amount_alphabetic", "cents", "cents_copola", "skip"] # The labels should be a list of strings
+LABELS = ["amendment_amount", "amendment_amount_description", "agreement_amount", "agreement_amount_description", "other_amount", "other_amount_description", "document_self_reference", "amount_alphabetic", "skip"] # The labels should be a list of strings
 
 
 def get_number_words():
