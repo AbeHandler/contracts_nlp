@@ -9,6 +9,10 @@ import string
 from nltk.tokenize import RegexpTokenizer
 from nltk.corpus import words
 
+
+CURRENCY_REG = re.compile("\$[\d\,]+(.\d\d)?")
+
+
 #  _____________________
 # |1. CONFIGURE LABELS! |
 # |_____________________| 
@@ -42,7 +46,7 @@ def parse(raw_string):
     if not TAGGER:
         raise IOError('\nMISSING MODEL FILE: %s\nYou must train the model before you can use the parse and tag methods\nTo train the model annd create the model file, run:\nparserator train [traindata] [modulename]' %MODEL_FILE)
 
-    tokenizer = RegexpTokenizer('\w+|\$[\d\.,]+')
+    tokenizer = RegexpTokenizer('\w+|\$[\d\,]+(.\d\d)?')
     tokens = tokenizer.tokenize(raw_string)
     if not tokens :
         return []
@@ -73,7 +77,7 @@ def tag(raw_string) :
 #     (•ㅅ•) || 
 #     / 　 づ
 def tokenize(raw_string):
-    tokenizer = RegexpTokenizer('\w+|\$[\d\.,]+')
+    tokenizer = RegexpTokenizer('\w+|\$[\d\,]+(.\d\d)?')
     tokens = tokenizer.tokenize(raw_string)
     if not tokens :
         return []
@@ -152,6 +156,10 @@ def is_red_herring(token):
         return True
     else:
         return False
+
+
+def is_currency(token):
+    return CURRENCY_REG.match(token)
 
 
 def is_english(token):

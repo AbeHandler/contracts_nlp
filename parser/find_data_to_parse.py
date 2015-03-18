@@ -6,10 +6,12 @@ import nltk
 import string
 from nltk.corpus import words
 from contracts_ml.settings import Settings
+from random import shuffle
 
 s = Settings()
 
 glob_files = glob.glob(s.corpus_location + "/*_text.txt")
+shuffle(glob_files) #shuffle glob files to get random training data
 
 pattern = ".{75}\$[0-9]+.{75}"
 
