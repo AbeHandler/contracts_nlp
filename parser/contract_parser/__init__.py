@@ -10,7 +10,7 @@ from nltk.tokenize import RegexpTokenizer
 from nltk.corpus import words
 
 
-CURRENCY_REG = re.compile("\$[\d\,]+(.\d\d)?")
+CURRENCY_REG = re.compile('\$[\d]+(\.\d)? billion|\w+|\$[\d\,]+(.\d\d)?')
 
 
 #  _____________________
@@ -46,7 +46,7 @@ def parse(raw_string):
     if not TAGGER:
         raise IOError('\nMISSING MODEL FILE: %s\nYou must train the model before you can use the parse and tag methods\nTo train the model annd create the model file, run:\nparserator train [traindata] [modulename]' %MODEL_FILE)
 
-    tokenizer = RegexpTokenizer('\w+|\$[\d\,]+(.\d\d)?')
+    tokenizer = RegexpTokenizer('\$[\d]+(\.\d)? billion|\w+|\$[\d\,]+(.\d\d)?')
     tokens = tokenizer.tokenize(raw_string)
     if not tokens :
         return []
@@ -77,7 +77,7 @@ def tag(raw_string) :
 #     (•ㅅ•) || 
 #     / 　 づ
 def tokenize(raw_string):
-    tokenizer = RegexpTokenizer('\w+|\$[\d\,]+(.\d\d)?')
+    tokenizer = RegexpTokenizer('\$[\d]+(\.\d)? billion|\w+|\$[\d\,]+(.\d\d)?')
     tokens = tokenizer.tokenize(raw_string)
     if not tokens :
         return []
@@ -179,6 +179,12 @@ def has_comma(token):
     if "," in token:
         return True
     else: 
+        return False
+
+def contains_billion(token):
+    if "billion" in token:
+        return True
+    else:
         return False
 
 def can_convert_to_float(token):
