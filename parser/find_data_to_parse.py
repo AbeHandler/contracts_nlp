@@ -35,6 +35,7 @@ def add_line(hit, dcid):
 for f in glob_files:
     lines = "".join([l.replace("\\n", "") for l in open(f)]).replace("\\n", "")
     for hit in re.findall(pattern, lines):
+        hit = hit.replace("}", "").replace("{", "")
         tokens = nltk.word_tokenize(hit)
         english_tokens = [t for t in tokens if is_english(t)]
         if float(len(english_tokens))/float(len(tokens)) > .5:   #if more than 50 % english...
