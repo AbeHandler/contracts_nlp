@@ -1,4 +1,4 @@
-![Alt text]('https://raw.githubusercontent.com/AbeHandler/contract_classification/master/Working.png')
+![Alt text]('https://s3-us-west-2.amazonaws.com/lensnola/images/Working.png')
 
 # What is this?
 
