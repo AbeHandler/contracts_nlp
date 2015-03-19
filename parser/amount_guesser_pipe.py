@@ -1,6 +1,7 @@
 import contract_parser 
 import sys
 import csv
+import json
 
 
 def parsed_to_json(parsed, doc_cloud_id, original):
@@ -12,8 +13,12 @@ def parsed_to_json(parsed, doc_cloud_id, original):
     output['original'] = original
     return output
 
+
 if __name__ == "__main__":
     for line in sys.stdin:
         for row in csv.reader([line]):
             parsed = contract_parser.parse(row[0])
-            print parsed_to_json(parsed, row[1], row[0])
+            json_data = parsed_to_json(parsed, row[1], row[0])
+            print json_data
+            with open('parsed.json', 'w') as outfile:
+                json.dump(json_data, outfile)
