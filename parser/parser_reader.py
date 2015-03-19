@@ -1,5 +1,11 @@
 import json
+import ast
+import re
 
-with open("parsed.json") as json_file:
-    json_data = json.load(json_file)
-    
+data_file = "".join([p for p in open("parsed.json")])
+
+hits = re.findall("{[^}]+}", data_file)
+
+for h in hits:
+    h = ast.literal_eval(h)
+    print h.keys()

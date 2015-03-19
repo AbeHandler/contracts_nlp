@@ -19,6 +19,5 @@ if __name__ == "__main__":
         for row in csv.reader([line]):
             parsed = contract_parser.parse(row[0])
             json_data = parsed_to_json(parsed, row[1], row[0])
-            print json_data
-            with open('parsed.json', 'w') as outfile:
+            with open('parsed.json', 'a') as outfile:
                 json.dump(json_data, outfile)
