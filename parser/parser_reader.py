@@ -4,13 +4,9 @@ import re
 from colorama import Fore, Back, Style
 import csv
 import sys
+from utilities import filter_hits
 
 tag_to_check = sys.argv[1]
-
-def filter_hits(hits, filter_term):
-    hits = [ast.literal_eval(h) for h in hits]
-    hits = [h for h in hits if filter_term in h.keys()]
-    return hits
 
 
 def color_me_red(input_text, color_this):
