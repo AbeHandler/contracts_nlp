@@ -3,6 +3,9 @@ import ast
 import re
 from colorama import Fore, Back, Style
 import csv
+import sys
+
+tag_to_check = sys.argv[1]
 
 def filter_hits(hits, filter_term):
     hits = [ast.literal_eval(h) for h in hits]
@@ -23,14 +26,14 @@ data_file = "".join([p for p in open("parsed.json")])
 
 hits = re.findall("{[^}]+}", data_file)
 
-hits = filter_hits(hits, "agreement_amount")
+hits = filter_hits(hits, tag_to_check)
 
 counter = 0
 
 for h in hits:
     counter += 1
     print str(counter) + " of " + str(len(hits))
-    print "{} | {}".format(color_me_red(h['agreement_amount'][0], h['agreement_amount'][0]), color_me_red(h['original'].strip(), h['agreement_amount'][0]))
+    print "{} | {}".format(color_me_red(h[tag_to_check][0], h[tag_to_check][0]), color_me_red(h['original'].strip(), h[tag_to_check][0]))
     var = raw_input("Correct (c) or Not (n)?")
     if var == "n":
         write_new(h['original'])
