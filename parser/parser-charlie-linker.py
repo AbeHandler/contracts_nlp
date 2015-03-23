@@ -5,6 +5,19 @@ import os
 from collections import Counter
 from utilities import filter_hits
 from utilities import get_page_with_phrase
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import create_engine
+from charlie.models.charlie_classes import AmountString
+from charlie.settings import Settings
+from sqlalchemy.orm import sessionmaker
+
+
+'''setup database connection'''
+connection_string = Settings().connection_string
+engine = create_engine(connection_string)
+Session = sessionmaker(bind=engine)
+Session.configure(bind=engine)
+session = Session()
 
 
 data_file = "".join([p for p in open("parsed.json")])
@@ -40,10 +53,13 @@ for i in to_check_with_human:
     check_w_charlie = [o for o in output if o[0]==i]
     assert len(check_w_charlie) == 1
     check_w_charlie = check_w_charlie.pop()
-    dcid = check_w_charlie[0]
-    context = check_w_charlie[1]
-    amt = check_w_charlie[2].pop()
+    dcid = str(check_w_charlie[0])
+    context = str(check_w_charlie[1])
+    amt = str(check_w_charlie[2].pop())
     page_in_dc = str(get_page_with_phrase(dcid, context))
     with open('charlie_queue.csv', 'a') as f:
+        print dcid
         writer = csv.writer(f)
-        writer.writerows([dcid, context,amt,page_in_dc])
+        am = AmountString(dcid, context, amt, page_in_dc)
+        session.add(am)
+        session.commit()
