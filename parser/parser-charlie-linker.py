@@ -60,6 +60,6 @@ for i in to_check_with_human:
     with open('charlie_queue.csv', 'a') as f:
         print dcid
         writer = csv.writer(f)
-        am = AmountString(dcid, context, amt, page_in_dc)
+        am = AmountString(dcid, context, amt, page_in_dc, 'agreement_amount')
         session.add(am)
         session.commit()
